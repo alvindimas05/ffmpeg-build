@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-FFMPEG_VERSION=7.0
+FFMPEG_VERSION=7.1
 FFMPEG_TARBALL=ffmpeg-$FFMPEG_VERSION.tar.gz
 FFMPEG_TARBALL_URL=http://ffmpeg.org/releases/$FFMPEG_TARBALL
 
@@ -179,4 +179,11 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-parser=mpegaudio
     --enable-parser=tak
     --enable-parser=vorbis
+
+    # Only take the wav encoder
+    --enable-muxer=wav
+    --enable-encoder=pcm_s16le
+    --enable-encoder=pcm_s24le
+    --enable-encoder=pcm_f32le
+
 )
