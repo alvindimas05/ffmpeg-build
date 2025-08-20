@@ -183,6 +183,7 @@ FFMPEG_CONFIGURE_FLAGS=(
     # Only enable mp3
     --enable-demuxer=mp3
     --enable-muxer=mp3
+    --enable-encoder=mp3
     --enable-encoder=libmp3lame
     --enable-libmp3lame
 
