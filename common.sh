@@ -180,11 +180,8 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-parser=tak
     --enable-parser=vorbis
 
-    # Only take the necessary stuffs
-    --enable-muxer=wav
-    --enable-encoder=pcm_u8
-    --enable-encoder=pcm_s16le
-    --enable-encoder=pcm_s24le
-    --enable-encoder=pcm_f32le
-    --enable-filter=aresample
+    # Only enable mp3 encoder
+    --enable-demuxer=mp3
+    --enable-encoder=mp3
+    --enable-libmp3lame
 )
