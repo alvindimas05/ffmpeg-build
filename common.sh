@@ -185,4 +185,7 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-muxer=mp3
     --enable-encoder=libmp3lame
     --enable-libmp3lame
+
+    # Required to convert
+    --enable-filter=aresample
 )
