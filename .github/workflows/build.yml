@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   # push:
   # pull_request:
-
+  
 jobs:
   package-linux:
     runs-on: ubuntu-latest
@@ -76,7 +76,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
-        run: brew install yasm lame
+        run: |
+          brew install yasm lame pkg-config
+          # Set environment variables for Homebrew paths on Apple Silicon
+          echo "PKG_CONFIG_PATH=$(brew --prefix)/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
+          echo "HOMEBREW_PREFIX=$(brew --prefix)" >> $GITHUB_ENV
       - name: Build
         run: ./build-macos.sh
       - name: Archive artifacts
@@ -96,7 +100,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
-        run: brew install yasm lame
+        run: |
+          brew install yasm lame pkg-config
+          # Set environment variables for Homebrew paths on Intel
+          echo "PKG_CONFIG_PATH=$(brew --prefix)/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
+          echo "HOMEBREW_PREFIX=$(brew --prefix)" >> $GITHUB_ENV
       - name: Build
         run: ./build-macos.sh
       - name: Archive artifacts
