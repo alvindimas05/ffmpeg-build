@@ -4,7 +4,6 @@ set -eux
 
 cd $(dirname $0)
 BASE_DIR=$(pwd)
-
 source common.sh
 
 if [ ! -e $FFMPEG_TARBALL ]
@@ -28,12 +27,14 @@ case $TARGET in
 esac
 
 OUTPUT_DIR=artifacts/ffmpeg-$FFMPEG_VERSION-audio-$TARGET
-
 BUILD_DIR=$BASE_DIR/$(mktemp -d build.XXXXXXXX)
 trap 'rm -rf $BUILD_DIR' EXIT
-
 cd $BUILD_DIR
+
 tar --strip-components=1 -xf $BASE_DIR/$FFMPEG_TARBALL
+
+# Get Homebrew prefix (should be set from workflow)
+HOMEBREW_PREFIX=${HOMEBREW_PREFIX:-$(brew --prefix)}
 
 FFMPEG_CONFIGURE_FLAGS+=(
     --cc=/usr/bin/clang
@@ -41,8 +42,8 @@ FFMPEG_CONFIGURE_FLAGS+=(
     --enable-cross-compile
     --target-os=darwin
     --arch=$ARCH
-    --extra-ldflags="-target $TARGET"
-    --extra-cflags="-target $TARGET"
+    --extra-ldflags="-target $TARGET -L$HOMEBREW_PREFIX/lib"
+    --extra-cflags="-target $TARGET -I$HOMEBREW_PREFIX/include"
     --enable-runtime-cpudetect
 )
 
