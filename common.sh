@@ -58,8 +58,9 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-demuxer=mp3
     --enable-demuxer=alac
     --enable-demuxer=opus
+    --enable-demuxer=image2        # For image extraction
 
-    # Decoders for those demuxers
+    # Audio decoders
     --enable-decoder=flac
     --enable-decoder=aac
     --enable-decoder=alac
@@ -69,6 +70,11 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-decoder=pcm_s24le
     --enable-decoder=pcm_s32le
     --enable-decoder=vorbis
+    
+    # Image decoders (for cover art extraction)
+    --enable-decoder=mjpeg
+    --enable-decoder=png
+    --enable-decoder=bmp
 
     # Parsers (needed for some input formats)
     --enable-parser=aac
@@ -76,10 +82,16 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-parser=mpegaudio
     --enable-parser=vorbis
 
-    # Output encoder (ONLY libmp3lame)
-    --enable-muxer=mp3
-    --enable-encoder=libmp3lame
-    --enable-libmp3lame
+    # Output muxers - WAV for audio, image2pipe for cover art
+    --enable-muxer=wav             # WAV PCM output (fast)
+    --enable-muxer=image2          # For image extraction
+    --enable-muxer=image2pipe      # For piping images to stdout
+    
+    # Output encoders - PCM WAV (fastest) and image encoders
+    --enable-encoder=pcm_s16le     # 16-bit PCM WAV (very fast)
+    --enable-encoder=pcm_s24le     # 24-bit PCM WAV
+    --enable-encoder=pcm_s32le     # 32-bit PCM WAV
+    --enable-encoder=png           # PNG encoder for cover art
 
     # Required filter
     --enable-filter=aresample
