@@ -92,6 +92,7 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-encoder=pcm_s24le     # 24-bit PCM WAV
     --enable-encoder=pcm_s32le     # 32-bit PCM WAV
     --enable-encoder=png           # PNG encoder for cover art
+    --enable-encoder=bmp           # BMP encoder for cover art
 
     # Required filter
     --enable-filter=aresample
